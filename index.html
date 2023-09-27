@@ -1,28 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>URL Lookup</title>
+    <title>URL Indexer</title>
     <script>
-        function lookupURL() {
+        function indexURL() {
             var url = document.getElementById("urlInput").value;
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    var resultDiv = document.getElementById("resultDiv");
-                    resultDiv.innerHTML = data;
-                })
-                .catch(error => {
-                    var resultDiv = document.getElementById("resultDiv");
-                    resultDiv.innerHTML = "Error: " + error;
-                });
+            var data = document.getElementById("dataInput").value;
+            var indexDiv = document.getElementById("indexDiv");
+            indexDiv.innerHTML += "<p><strong>URL:</strong> " + url + "</p><p><strong>Data:</strong> " + data + "</p>";
         }
     </script>
 </head>
 <body>
-    <h1>URL Lookup</h1>
+    <h1>URL Indexer</h1>
     <input type="text" id="urlInput" placeholder="Enter URL">
-    <button onclick="lookupURL()">Lookup</button>
     <br>
-    <div id="resultDiv"></div>
+    <textarea id="dataInput" placeholder="Enter data"></textarea>
+    <br>
+    <button onclick="indexURL()">Index</button>
+    <br>
+    <div id="indexDiv"></div>
 </body>
 </html>
