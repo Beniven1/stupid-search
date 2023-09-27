@@ -5,18 +5,22 @@
     <script>
         function indexURL() {
             var url = document.getElementById("urlInput").value;
-            var data = document.getElementById("dataInput").value;
-            var indexDiv = document.getElementById("indexDiv");
-            indexDiv.innerHTML += "<p><strong>URL:</strong> " + url + "</p><p><strong>Data:</strong> " + data + "</p>";
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    var indexDiv = document.getElementById("indexDiv");
+                    indexDiv.innerHTML = "<pre>" + data + "</pre>";
+                })
+                .catch(error => {
+                    var indexDiv = document.getElementById("indexDiv");
+                    indexDiv.innerHTML = "Error: " + error;
+                });
         }
     </script>
 </head>
 <body>
     <h1>URL Indexer</h1>
     <input type="text" id="urlInput" placeholder="Enter URL">
-    <br>
-    <textarea id="dataInput" placeholder="Enter data"></textarea>
-    <br>
     <button onclick="indexURL()">Index</button>
     <br>
     <div id="indexDiv"></div>
