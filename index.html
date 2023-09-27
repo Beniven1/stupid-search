@@ -1,28 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>URL Indexer</title>
+    <title>URL HTML Viewer</title>
     <script>
-        function indexURL() {
+        function viewHTML() {
             var url = document.getElementById("urlInput").value;
             fetch(url)
                 .then(response => response.text())
                 .then(data => {
-                    var indexDiv = document.getElementById("indexDiv");
-                    indexDiv.innerHTML = "<pre>" + data + "</pre>";
+                    var htmlDiv = document.getElementById("htmlDiv");
+                    htmlDiv.innerText = data;
                 })
                 .catch(error => {
-                    var indexDiv = document.getElementById("indexDiv");
-                    indexDiv.innerHTML = "Error: " + error;
+                    var htmlDiv = document.getElementById("htmlDiv");
+                    htmlDiv.innerText = "Error: " + error;
                 });
         }
     </script>
 </head>
 <body>
-    <h1>URL Indexer</h1>
+    <h1>URL HTML Viewer</h1>
     <input type="text" id="urlInput" placeholder="Enter URL">
-    <button onclick="indexURL()">Index</button>
+    <button onclick="viewHTML()">View HTML</button>
     <br>
-    <div id="indexDiv"></div>
+    <div id="htmlDiv"></div>
 </body>
 </html>
