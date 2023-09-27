@@ -5,16 +5,16 @@
     <script>
         function lookupURL() {
             var url = document.getElementById("urlInput").value;
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var response = xhr.responseText;
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
                     var resultDiv = document.getElementById("resultDiv");
-                    resultDiv.innerHTML = response;
-                }
-            };
-            xhr.open("GET", url, true);
-            xhr.send();
+                    resultDiv.innerHTML = data;
+                })
+                .catch(error => {
+                    var resultDiv = document.getElementById("resultDiv");
+                    resultDiv.innerHTML = "Error: " + error;
+                });
         }
     </script>
 </head>
