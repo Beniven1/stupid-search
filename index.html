@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>URL HTML Viewer</title>
-    <script>
-        function viewHTML() {
-            var url = document.getElementById("urlInput").value;
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    var htmlDiv = document.getElementById("htmlDiv");
-                    htmlDiv.innerText = data;
-                })
-                .catch(error => {
-                    var htmlDiv = document.getElementById("htmlDiv");
-                    htmlDiv.innerText = "Error: " + error;
-                });
-        }
-    </script>
+  <title>Fetch Raw HTML</title>
 </head>
 <body>
-    <h1>URL HTML Viewer</h1>
-    <input type="text" id="urlInput" placeholder="Enter URL">
-    <button onclick="viewHTML()">View HTML</button>
-    <br>
-    <div id="htmlDiv"></div>
+  <h1>Fetch Raw HTML</h1>
+  <form id="urlForm">
+    <label for="urlInput">Enter URL:</label>
+    <input type="text" id="urlInput" placeholder="example.com">
+    <button type="submit">Fetch HTML</button>
+  </form>
+  <div id="htmlContainer"></div>
+
+  <script>
+    const urlForm = document.getElementById("urlForm");
+    const urlInput = document.getElementById("urlInput");
+    const htmlContainer = document.getElementById("htmlContainer");
+
+    urlForm.addEventListener("submit", function(event) {
+      event.preventDefault();
+      const url = formatUrl(urlInput.value);
+      copyRawHtml(url);
+    });
+
+    function formatUrl(url) {
+      if (!url.startsWith("http://") && !url.startsWith("https://")) {
+        url = "https://" + url;
+      }
+      return url;
+    }
+
+    function copyRawHtml(url) {
+      fetch(url)
+        .then(response => response.text())
+        .then(html => {
+          htmlContainer.innerHTML = html;
+        })
+        .catch(error => console.log('Error:', error));
+    }
+  </script>
 </body>
 </html>
